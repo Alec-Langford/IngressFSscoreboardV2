@@ -49,7 +49,7 @@ class player(Model):
         database = dbm.db
 
 
-dbm.db.create_tables([player_begin, player_end, player])
+
 
 class DataMGR():
     def __init__(self,stat1="Kms",stat2="Hacks"):
@@ -76,7 +76,10 @@ class DataMGR():
         return response.text.split("\n")[1:]
 
     def collect(self):
-
+        try:
+            dbm.db.create_tables([player_begin, player_end, player])
+        except OperationalError:
+            pass
         t=[]
         for item in self.urls:
             i = self.template_url%self.get_key(item)
@@ -178,6 +181,7 @@ class DataMGR():
         [item.delete() for item in player.select()]
         [item.delete() for item in player_begin.select()]
         [item.delete() for item in player_end.select()]
+        #print player.select()
 
 
 
