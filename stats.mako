@@ -7,6 +7,7 @@
 body {
     background-color: #000;
     height:100%;
+    color: #fff;
 }
 h1{
     font-weight: 800;
@@ -18,6 +19,11 @@ h1{
 </style>
 
 %for item in sorted(context.keys()):
+    %if item[1]=="_":
+
     ${item}: ${context[item]}
+
+    %endif
     <br/>
+
    %endfor
