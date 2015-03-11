@@ -62,25 +62,10 @@ h1{
 <body>
            <%
    try:
-    e=open("enlightened").read()
-    r=open("resistance").read()
-    t=float(r)+float(e)
+ 
     ep="%.2f" % (int(e)/t*100)
     rp="%.2f" % (int(r)/t*100)
-    table=[item.split(",") for item in open("scoreboard.csv").readlines()]
-    factions=[item[1] for item in table]
-    ec=factions.count("Enlightened")
-    rc=factions.count("Resistance")
-   except:
-    e=0
-    r=0
-    t=0
-    ep=0
-    rp=0
-    ec=0
-    rc=0
-    table = []
-    factions = []
+
 %>
 
 
@@ -91,7 +76,7 @@ h1{
     <div class="column-left">
 
         <h1>${rp}%</h1>
-    <h1>${r}</h1>
+    <h1>${r_average}</h1>
 
     </div>
 
@@ -107,10 +92,10 @@ h1{
                    <table width="100%" >
                    <tr>
                    <td>
-                   <span style="color:#4595dd"> Resistance Agents: ${rc}</span>
+                   <span style="color:#4595dd"> Resistance Agents: ${r_players}</span>
                    </td>
                    <td style="text-align: right">
-                   <span style="color:#3bc455"> Enlightened Agents: ${ec}</span>
+                   <span style="color:#3bc455"> Enlightened Agents: ${e_players}</span>
                    </td>
 
                    </tr>
@@ -126,7 +111,7 @@ h1{
                     </tr>
 
 
-            % for i, a in enumerate(table):
+            % for i, a in enumerate(g_table):
                <tr>
                    <td>
                     ${i+1}
@@ -156,7 +141,7 @@ h1{
    <div class="column-right">
 
         <h1>${ep}%</h1>
-    <h1>${e}</h1>
+    <h1>${e_average}</h1>
 
        </div>
 
