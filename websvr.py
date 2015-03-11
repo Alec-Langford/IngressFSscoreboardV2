@@ -181,29 +181,48 @@ class DataMGR():
         d=self.join_tables()
         return d
 
-
 d=DataMGR()
+
+class cache:
+    def __init__(self):
+        self.value = d.update_scoreboard()
+
+    def update(self):
+        self.value = d.update_scoreboard()
+
+
+c=cache()
 
 class WebApp(object):
     def __init__(self):
-        d.collect()
+        #d.collect()
         self.lookup = TemplateLookup(directories=["/"])
 
     @cherrypy.expose
     def index(self):
-
-        t = Template("index.mako",lookup=self.lookup)
-        return t.render()
+        r = c.value
+        t = Template(filename="index.mako",lookup=self.lookup)
+        return t.render(**r)
 
     @cherrypy.expose
-    def sitrep(self):
-
-        t = Template("sitrep.mako")
-        r=d.join_tables()
+    def stats(self):
+        r = c.value
+        t = Template(filename="stats.mako",lookup=self.lookup)
         return t.render(**r)
 
 
 
+    @cherrypy.expose
+    def sitrep(self):
+
+        t = Template(filename="sitrep.mako", lookup=self.lookup)
+        r=c.value
+        return t.render(**r)
+
+
+
+if __name__ == '__main__':
+    cherrypy.quickstart(WebApp(), '/', 'c.conf')
 
 
 

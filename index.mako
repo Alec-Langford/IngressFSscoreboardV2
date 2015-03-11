@@ -5,7 +5,7 @@
 <style type="text/css">
 body {
     background-image: url("images/bg.jpg");
-    height:200%;
+    height:300%;
 }
 h1{
     font-weight: 800;
@@ -59,17 +59,15 @@ h1{
 </head>
 
 
+
 <body>
-           <%
-   try:
- 
-    ep="%.2f" % (int(e)/t*100)
-    rp="%.2f" % (int(r)/t*100)
 
-%>
+<%
+    t=e_average+r_average
+    ep="%.2f" % (float(e_average)/t*100)
+    rp="%.2f" % (float(r_average)/t*100)
 
-
-
+    %>
 
 
 <div class="container">
@@ -104,14 +102,14 @@ h1{
                    <br/>
                <table>
                    <tr>
-                   %for c in ["Rank","Agent","Faction","Levels","AP","Kms","Hacks"]:
+                   %for c in ["Rank","Agent","Faction","Levels","AP",g_stat1Name,g_stat2Name]:
 
                        <td><h3>${c}</h3></td>
                    %endfor
                     </tr>
 
 
-            % for i, a in enumerate(g_table):
+            % for i, a in enumerate(g_scoreboard):
                <tr>
                    <td>
                     ${i+1}
