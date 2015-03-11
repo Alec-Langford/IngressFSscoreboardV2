@@ -174,6 +174,13 @@ class DataMGR():
             "g_stat2_total":sum([resistance_stat2_total,enlightened_stat2_total]),
 
         }
+
+        [item.delete() for item in player.select()]
+        [item.delete() for item in player_begin.select()]
+        [item.delete() for item in player_end.select()]
+
+
+
         return d
 
     def update_scoreboard(self):
@@ -188,7 +195,9 @@ class cache:
         self.value = d.update_scoreboard()
 
     def update(self):
+
         self.value = d.update_scoreboard()
+        print "updated"
 
 
 c=cache()
@@ -222,26 +231,14 @@ class WebApp(object):
 
 
 if __name__ == '__main__':
+
+    wd = cherrypy.process.plugins.BackgroundTask(30,c.update)
+    wd.start()
+
     cherrypy.quickstart(WebApp(), '/', 'c.conf')
 
 
 
-
-
-
-
-
-
-
-
-
-"""
-
-d.collect()
-x=d.join_tables()
-print x
-for i, item in enumerate(x["g_scoreboard"]):
-    print i+1,item"""
 
 
 
